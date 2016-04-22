@@ -23,6 +23,10 @@ import com.shangde.pojo.PhoneInfo;
 @Service
 public interface DemoService {
 
+	/**
+	 * 获取队列信息
+	 * @return
+	 */
 	Queue<PhoneInfo> getPhoneInfo();
 
 	void sendPhoneInfo(Queue<PhoneInfo> phoneInfoQueue);
