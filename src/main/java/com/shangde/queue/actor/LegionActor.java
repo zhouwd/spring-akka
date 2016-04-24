@@ -24,33 +24,33 @@ import com.shangde.pojo.PhoneInfo;
  */
 public class LegionActor extends UntypedActor {
 
-	private Map<String, ActorRef> actorRefMap = new HashMap<>();
+    private Map<String, ActorRef> actorRefMap = new HashMap<>();
 
-	@Override
-	public void onReceive(Object message) throws Exception {
+    @Override
+    public void onReceive(Object message) throws Exception {
 //		System.out.println(getSelf().path() + " message=" + message.toString());
-		if (message instanceof PhoneInfo) {
-			PhoneInfo phoneInfo = (PhoneInfo) message;
-			Props props = Props.create(GroupActor.class);
+        if (message instanceof PhoneInfo) {
+            PhoneInfo phoneInfo = (PhoneInfo) message;
+            Props props = Props.create(GroupActor.class);
 
-			String actorName = "group_" + phoneInfo.getGroupId();
+            String actorName = "group_" + phoneInfo.getGroupId();
 
-			ActorRef actorRef = actorRefMap.get(actorName);
-			if (actorRef == null) {
-				actorRef = getContext().actorOf(props, actorName);
-				actorRefMap.put(actorName, actorRef);
-			}
+            ActorRef actorRef = actorRefMap.get(actorName);
+            if (actorRef == null) {
+                actorRef = getContext().actorOf(props, actorName);
+                actorRefMap.put(actorName, actorRef);
+            }
 
-			actorRef.tell(phoneInfo, getSelf());
+            actorRef.tell(phoneInfo, getSelf());
 
-		} else if (message instanceof String && "EOF".equals(message.toString())) {
-			System.out.println("关闭该队列");
-			getContext().system().shutdown();
+        } else if (message instanceof String && "EOF".equals(message.toString())) {
+            System.out.println("关闭该队列");
+            getContext().system().shutdown();
 
-		} else {
-			unhandled(message);
-		}
-	}
+        } else {
+            unhandled(message);
+        }
+    }
 
 
 }

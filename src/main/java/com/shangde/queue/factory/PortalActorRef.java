@@ -11,7 +11,7 @@ import com.typesafe.config.ConfigFactory;
  * 
  * 工程名称: spring-akka
  *
- * 创建队列工厂类，负责创建各个模块的队列。
+ * 创建消息的入口。
  *
  * 创建日期： 2016年04月21日
  *

@@ -29,12 +29,14 @@ public interface PhoneActorService {
 
     /**
      * 发送消息
+     *
      * @param phoneInfo 电话信息
      */
     void sendPhoneInfo(PhoneInfo phoneInfo);
 
     /**
      * 批量发送队列消息
+     *
      * @param phoneInfoQueue 批量的队列消息
      */
     void sendQueuePhoneInfo(Queue<PhoneInfo> phoneInfoQueue);

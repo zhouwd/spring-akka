@@ -15,7 +15,7 @@ package com.shangde.util;
  *
  */
 public class CommonUtil {
-	public static boolean isPhoneNum(String phoneNum) {
-		return phoneNum != null && phoneNum.matches("[0-9]+");
-	}
+    public static boolean isPhoneNum(String phoneNum) {
+        return phoneNum != null && phoneNum.matches("[0-9]+");
+    }
 }

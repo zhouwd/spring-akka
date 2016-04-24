@@ -16,88 +16,88 @@ import java.io.Serializable;
  * 原始作者: zhouwendong
  *
  */
-public class PhoneInfo implements Serializable{
+public class PhoneInfo implements Serializable {
 
-	private Integer legionId;
+    private Integer legionId;
 
-	private Integer groupId;
+    private Integer groupId;
 
-	private String agentName;
+    private String agentName;
 
-	private String studentName;
+    private String studentName;
 
-	private String phoneType;
+    private String phoneType;
 
-	private String phoneNum;
+    private String phoneNum;
 
-	private String callNum;
+    private String callNum;
 
-	public Integer getLegionId() {
-		return legionId;
-	}
+    public Integer getLegionId() {
+        return legionId;
+    }
 
-	public void setLegionId(Integer legionId) {
-		this.legionId = legionId;
-	}
+    public void setLegionId(Integer legionId) {
+        this.legionId = legionId;
+    }
 
-	public Integer getGroupId() {
-		return groupId;
-	}
+    public Integer getGroupId() {
+        return groupId;
+    }
 
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
-	}
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
 
-	public String getAgentName() {
-		return agentName;
-	}
+    public String getAgentName() {
+        return agentName;
+    }
 
-	public void setAgentName(String agentName) {
-		this.agentName = agentName;
-	}
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
 
-	public String getStudentName() {
-		return studentName;
-	}
+    public String getStudentName() {
+        return studentName;
+    }
 
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
 
-	public String getPhoneType() {
-		return phoneType;
-	}
+    public String getPhoneType() {
+        return phoneType;
+    }
 
-	public void setPhoneType(String phoneType) {
-		this.phoneType = phoneType;
-	}
+    public void setPhoneType(String phoneType) {
+        this.phoneType = phoneType;
+    }
 
-	public String getPhoneNum() {
-		return phoneNum;
-	}
+    public String getPhoneNum() {
+        return phoneNum;
+    }
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
-	public String getCallNum() {
-		return callNum;
-	}
+    public String getCallNum() {
+        return callNum;
+    }
 
-	public void setCallNum(String callNum) {
-		this.callNum = callNum;
-	}
+    public void setCallNum(String callNum) {
+        this.callNum = callNum;
+    }
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("PhoneInfo{");
-		sb.append("legionId=").append(legionId);
-		sb.append(", groupId=").append(groupId);
-		sb.append(", agentName='").append(agentName).append('\'');
-		sb.append(", phoneType='").append(phoneType).append('\'');
-		sb.append(", phoneNum='").append(phoneNum).append('\'');
-		sb.append(", callNum='").append(callNum).append('\'');
-		sb.append('}');
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("PhoneInfo{");
+        sb.append("legionId=").append(legionId);
+        sb.append(", groupId=").append(groupId);
+        sb.append(", agentName='").append(agentName).append('\'');
+        sb.append(", phoneType='").append(phoneType).append('\'');
+        sb.append(", phoneNum='").append(phoneNum).append('\'');
+        sb.append(", callNum='").append(callNum).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

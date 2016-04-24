@@ -24,25 +24,25 @@ import com.shangde.pojo.PhoneInfo;
  */
 public class PortalActor extends UntypedActor {
 
-	private Map<String, ActorRef> actorRefMap = new HashMap<>();
+    private Map<String, ActorRef> actorRefMap = new HashMap<>();
 
-	@Override
-	public void onReceive(Object message) throws Exception {
-		if (message instanceof PhoneInfo) {
-			PhoneInfo phoneInfo = (PhoneInfo) message;
-			Props props = Props.create(LegionActor.class);
-			String actorName = "legion_" + phoneInfo.getLegionId().toString();
-			ActorRef actorRef = actorRefMap.get(actorName);
-			if (actorRef == null) {
-				actorRef = getContext().actorOf(props, actorName);
-				actorRefMap.put(actorName, actorRef);
-			}
+    @Override
+    public void onReceive(Object message) throws Exception {
+        if (message instanceof PhoneInfo) {
+            PhoneInfo phoneInfo = (PhoneInfo) message;
+            Props props = Props.create(LegionActor.class);
+            String actorName = "legion_" + phoneInfo.getLegionId().toString();
+            ActorRef actorRef = actorRefMap.get(actorName);
+            if (actorRef == null) {
+                actorRef = getContext().actorOf(props, actorName);
+                actorRefMap.put(actorName, actorRef);
+            }
 
-			actorRef.tell(phoneInfo, getSelf());
+            actorRef.tell(phoneInfo, getSelf());
 
-		} else {
-			unhandled(message);
-		}
-	}
+        } else {
+            unhandled(message);
+        }
+    }
 
 }

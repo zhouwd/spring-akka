@@ -17,35 +17,35 @@ import java.util.Queue;
  * 原始作者: zhouwendong
  *
  */
-public class AgentInfo implements Serializable{
+public class AgentInfo implements Serializable {
 
-	private String emNo;
+    private String emNo;
 
-	private String seatNo;
+    private String seatNo;
 
-	private Queue<PhoneInfo> phoneInfoQueue;
+    private Queue<PhoneInfo> phoneInfoQueue;
 
-	public String getEmNo() {
-		return emNo;
-	}
+    public String getEmNo() {
+        return emNo;
+    }
 
-	public void setEmNo(String emNo) {
-		this.emNo = emNo;
-	}
+    public void setEmNo(String emNo) {
+        this.emNo = emNo;
+    }
 
-	public String getSeatNo() {
-		return seatNo;
-	}
+    public String getSeatNo() {
+        return seatNo;
+    }
 
-	public void setSeatNo(String seatNo) {
-		this.seatNo = seatNo;
-	}
+    public void setSeatNo(String seatNo) {
+        this.seatNo = seatNo;
+    }
 
-	public Queue<PhoneInfo> getPhoneInfoQueue() {
-		return phoneInfoQueue;
-	}
+    public Queue<PhoneInfo> getPhoneInfoQueue() {
+        return phoneInfoQueue;
+    }
 
-	public void setPhoneInfoQueue(Queue<PhoneInfo> phoneInfoQueue) {
-		this.phoneInfoQueue = phoneInfoQueue;
-	}
+    public void setPhoneInfoQueue(Queue<PhoneInfo> phoneInfoQueue) {
+        this.phoneInfoQueue = phoneInfoQueue;
+    }
 }

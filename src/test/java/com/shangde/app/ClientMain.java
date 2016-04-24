@@ -20,17 +20,17 @@ import com.typesafe.config.ConfigFactory;
  *
  */
 public class ClientMain {
-	public static void main(String[] args) {
-		/*根据配置,找到System*/
-		ActorSystem system = ActorSystem.create("ClientApp", ConfigFactory.load("akka.conf/client").getConfig("ClientSocketApp"));
-		final ActorRef remoteActor = system.actorFor("akka.tcp://ServerApp@127.0.0.1:2552/user/mainActor");
-		PhoneInfo remote = new PhoneInfo();
-		remote.setAgentName("san5");
-		remote.setLegionId(1);
-		remote.setGroupId(109);
-		remote.setPhoneNum("18799995555");
-		remote.setStudentName("小五");
+    public static void main(String[] args) {
+        /*根据配置,找到System*/
+        ActorSystem system = ActorSystem.create("ClientApp", ConfigFactory.load("akka.conf/client").getConfig("ClientSocketApp"));
+        final ActorRef remoteActor = system.actorFor("akka.tcp://ServerApp@127.0.0.1:2552/user/mainActor");
+        PhoneInfo remote = new PhoneInfo();
+        remote.setAgentName("san5");
+        remote.setLegionId(1);
+        remote.setGroupId(109);
+        remote.setPhoneNum("18799995555");
+        remote.setStudentName("小五");
 
-		remoteActor.tell(remote,ActorRef.noSender());
-	}
+        remoteActor.tell(remote, ActorRef.noSender());
+    }
 }
