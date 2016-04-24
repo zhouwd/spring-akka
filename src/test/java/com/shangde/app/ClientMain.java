@@ -22,7 +22,7 @@ import com.typesafe.config.ConfigFactory;
 public class ClientMain {
 	public static void main(String[] args) {
 		/*根据配置,找到System*/
-		ActorSystem system = ActorSystem.create("ClientApp", ConfigFactory.load("client").getConfig("ClientSocketApp"));
+		ActorSystem system = ActorSystem.create("ClientApp", ConfigFactory.load("akka.conf/client").getConfig("ClientSocketApp"));
 		final ActorRef remoteActor = system.actorFor("akka.tcp://ServerApp@127.0.0.1:2552/user/mainActor");
 		PhoneInfo remote = new PhoneInfo();
 		remote.setAgentName("san5");

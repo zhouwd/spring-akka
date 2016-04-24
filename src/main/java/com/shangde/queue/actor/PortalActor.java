@@ -1,4 +1,4 @@
-package com.shangde.queue;
+package com.shangde.queue.actor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import akka.actor.UntypedActor;
 import com.shangde.pojo.PhoneInfo;
 
 /*
- * 文件名： GroupActor.java
+ * 文件名： LegionActor.java
  * 
  * 工程名称: spring-akka
  *
@@ -22,19 +22,16 @@ import com.shangde.pojo.PhoneInfo;
  * 原始作者: zhouwendong
  *
  */
-public class LegionActor extends UntypedActor {
+public class PortalActor extends UntypedActor {
 
 	private Map<String, ActorRef> actorRefMap = new HashMap<>();
 
 	@Override
 	public void onReceive(Object message) throws Exception {
-//		System.out.println(getSelf().path() + " message=" + message.toString());
 		if (message instanceof PhoneInfo) {
 			PhoneInfo phoneInfo = (PhoneInfo) message;
-			Props props = Props.create(GroupActor.class);
-
-			String actorName = "group_" + phoneInfo.getGroupId();
-
+			Props props = Props.create(LegionActor.class);
+			String actorName = "legion_" + phoneInfo.getLegionId().toString();
 			ActorRef actorRef = actorRefMap.get(actorName);
 			if (actorRef == null) {
 				actorRef = getContext().actorOf(props, actorName);
@@ -43,14 +40,9 @@ public class LegionActor extends UntypedActor {
 
 			actorRef.tell(phoneInfo, getSelf());
 
-		} else if (message instanceof String && "EOF".equals(message.toString())) {
-			System.out.println("关闭该队列");
-			getContext().system().shutdown();
-
 		} else {
 			unhandled(message);
 		}
 	}
-
 
 }

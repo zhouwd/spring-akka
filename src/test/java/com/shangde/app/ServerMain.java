@@ -7,7 +7,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import com.shangde.pojo.PhoneInfo;
-import com.shangde.queue.PortalActor;
+import com.shangde.queue.actor.PortalActor;
 import com.typesafe.config.ConfigFactory;
 
 /*
@@ -27,7 +27,7 @@ import com.typesafe.config.ConfigFactory;
 public class ServerMain {
 
 	public static void main(String[] args) {
-		ActorSystem system = ActorSystem.create("ServerApp",ConfigFactory.load("server").getConfig("ServerSocketApp"));
+		ActorSystem system = ActorSystem.create("ServerApp",ConfigFactory.load("akka.conf/server").getConfig("ServerSocketApp"));
 		ActorRef legionActor = system.actorOf(Props.create(PortalActor.class), "mainActor");
 		for (PhoneInfo phoneInfo : getPhoneInfo()) {
 			legionActor.tell(phoneInfo, legionActor);

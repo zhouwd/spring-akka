@@ -1,4 +1,4 @@
-package com.shangde.message;
+package com.shangde.queue.message;
 
 /*
  * 文件名： PhoneMessage.java

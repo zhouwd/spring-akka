@@ -10,7 +10,7 @@ import java.util.Queue;
  *
  * Shang De
  *
- * 创建日期： 2016年04月21日
+ * 创建日期：2016年04月21日
  *
  * Copyright(C) 2015, by Shangde
  *

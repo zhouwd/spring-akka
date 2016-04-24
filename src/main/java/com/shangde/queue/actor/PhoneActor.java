@@ -1,10 +1,10 @@
-package com.shangde.queue;
+package com.shangde.queue.actor;
 
 import java.util.Date;
 
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import com.shangde.message.PhoneMessage;
+import com.shangde.queue.message.PhoneMessage;
 import com.shangde.pojo.PhoneInfo;
 
 /*

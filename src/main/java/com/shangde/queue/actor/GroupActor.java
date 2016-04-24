@@ -1,4 +1,4 @@
-package com.shangde.queue;
+package com.shangde.queue.actor;
 
 import java.util.HashMap;
 import java.util.Map;

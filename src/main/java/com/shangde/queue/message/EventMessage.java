@@ -1,4 +1,4 @@
-package com.shangde.message;
+package com.shangde.queue.message;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.shangde.queue;
+package com.shangde.queue.actor;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -6,7 +6,7 @@ import java.util.Queue;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import com.shangde.message.PhoneMessage;
+import com.shangde.queue.message.PhoneMessage;
 import com.shangde.pojo.PhoneInfo;
 import com.shangde.util.CommonUtil;
 
