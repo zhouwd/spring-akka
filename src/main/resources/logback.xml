@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread][IP:%X{ip}|USER:%X{user}][%-5level%logger{80}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- <substitutionProperty name="log.base" value="${catalina.base}/logs" 
+		/> -->
+	<substitutionProperty name="log.base" value="D:/logs" />
+
+	<appender name="rollingFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/stdout.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/stdout.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxHistory>5</MaxHistory>
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread][IP:%X{ip}|USER:%X{user}][%-5level%logger{80}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ErrorLoggerFileOut"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxHistory>5</MaxHistory>
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread][IP:%X{ip}|USER:%X{user}][%-5level%logger{80}] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	
+	<appender name="ThirdPartLoggerFileOut"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/thirdPart.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/thirdPart.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxHistory>5</MaxHistory>
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread][IP:%X{ip}|USER:%X{user}][%-5level%logger{80}] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	
+	<appender name="InfoLoggerFileOut"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxHistory>5</MaxHistory>
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread][IP:%X{ip}|USER:%X{user}][%-5level%logger{80}] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+
+	<!-- logger -->
+
+	<!-- code info log -->
+	<logger name="com.shangde" level="DEBUG">
+		<appender-ref ref="InfoLoggerFileOut" />
+	</logger>
+
+	<!-- third part log -->
+	<!-- 以下log 只拦截INFO以上级别 -->
+	<logger name="org.springframework" level="INFO" >
+		<appender-ref ref="ThirdPartLoggerFileOut" />
+	</logger>
+	<logger name="org.springframework" level="INFO" >
+	    <appender-ref ref="ThirdPartLoggerFileOut" />
+	</logger>
+	<logger name="com.atomikos" level="INFO" >
+	    <appender-ref ref="ThirdPartLoggerFileOut" />
+	</logger>
+	<logger name="org.mybatis" level="INFO" >
+	    <appender-ref ref="ThirdPartLoggerFileOut" />
+	</logger>
+	<logger name="org.apache.commons" level="INFO" >
+   	    <appender-ref ref="ThirdPartLoggerFileOut" />
+	</logger>
+	
+	<logger name="org.apache.axis.message" level="INFO" >
+   	    <appender-ref ref="ThirdPartLoggerFileOut" />
+	</logger>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="stdout" />
+        <!-- <appender-ref ref="rollingFile" /> -->
+	</root>
+</configuration>

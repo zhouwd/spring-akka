@@ -3,8 +3,13 @@ package com.shangde.queue.factory;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import com.shangde.queue.actor.PortalActor;
+import akka.actor.UntypedActor;
+import com.shangde.queue.actor.LegionActor;
+import com.shangde.queue.message.PhoneInfoMessage;
 import com.typesafe.config.ConfigFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * 文件名： ActorFactory.java
@@ -25,6 +30,7 @@ public class PortalActorRef {
     private static ActorRef portalActorRef;
 
     private PortalActorRef() {
+
     }
 
     public static ActorRef getDefaultActorRef() {
@@ -33,6 +39,32 @@ public class PortalActorRef {
             portalActorRef = system.actorOf(Props.create(PortalActor.class), "mainActor");
         }
         return portalActorRef;
+    }
+
+
+}
+
+class PortalActor extends UntypedActor {
+
+    private Map<String, ActorRef> actorRefMap = new HashMap<>();
+
+    @Override
+    public void onReceive(Object message) throws Exception {
+        if (message instanceof PhoneInfoMessage) {
+            PhoneInfoMessage phoneInfoMessage = (PhoneInfoMessage) message;
+            Props props = Props.create(LegionActor.class);
+            String actorName = "legion_" + phoneInfoMessage.getLegionId().toString();
+            ActorRef actorRef = actorRefMap.get(actorName);
+            if (actorRef == null) {
+                actorRef = getContext().actorOf(props, actorName);
+                actorRefMap.put(actorName, actorRef);
+            }
+
+            actorRef.tell(phoneInfoMessage, getSelf());
+
+        } else {
+            unhandled(message);
+        }
     }
 
 }

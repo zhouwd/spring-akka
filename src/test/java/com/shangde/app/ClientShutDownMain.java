@@ -2,7 +2,7 @@ package com.shangde.app;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import com.shangde.pojo.PhoneInfo;
+import com.shangde.queue.message.PhoneInfoMessage;
 import com.typesafe.config.ConfigFactory;
 
 /*
@@ -24,7 +24,7 @@ public class ClientShutDownMain {
         /*根据配置,找到System*/
         ActorSystem system = ActorSystem.create("ClientApp", ConfigFactory.load("client").getConfig("ClientSocketApp"));
         ActorRef remoteActor = system.actorFor("akka.tcp://ServerApp@127.0.0.1:2552/user/mainActor");
-        PhoneInfo remote = new PhoneInfo();
+        PhoneInfoMessage remote = new PhoneInfoMessage();
         remote.setAgentName("san3");
         remote.setLegionId(2);
         remote.setGroupId(203);

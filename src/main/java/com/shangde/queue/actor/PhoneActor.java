@@ -1,11 +1,12 @@
 package com.shangde.queue.actor;
 
-import java.util.Date;
-
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
-import com.shangde.pojo.PhoneInfo;
-import com.shangde.queue.message.PhoneMessage;
+import com.shangde.api.factory.StorageActorRef;
+import com.shangde.queue.message.PhoneInfoMessage;
+import com.shangde.queue.message.ResultInfoMessage;
+
+import java.util.Date;
 
 /*
  * 文件名： PhoneActor.java
@@ -22,34 +23,20 @@ import com.shangde.queue.message.PhoneMessage;
  *
  */
 public class PhoneActor extends UntypedActor {
-
+    //	private static final Logger logger = LoggerFactory.getLogger(PhoneActor.class);
     @Override
     public void onReceive(Object message) throws Exception {
-        if (message instanceof PhoneInfo) {
-            PhoneInfo phoneInfo = (PhoneInfo) message;
-            phoneInfo.setPhoneType("Y");
-            System.out.println(getSelf().path() + " message=" + message.toString());
-            System.out.println(new Date() + ":拨打中：" + phoneInfo.getPhoneNum());
-            PhoneMessage phoneMessage = null;
-            if (phoneInfo.getPhoneNum().equals("18799993333")) {
-                Thread.sleep(10000);
-                phoneMessage = new PhoneMessage(phoneInfo, PhoneMessage.MessageState.CannotConnected);
-                getSender().tell(phoneMessage, ActorRef.noSender());
-            } else if (phoneInfo.getPhoneNum().equals("18799994444")) {
-                Thread.sleep(2000);
-                phoneMessage = new PhoneMessage(phoneInfo, PhoneMessage.MessageState.Connected);
-                getSender().tell(phoneMessage, ActorRef.noSender());
-                Thread.sleep(8000);
-                phoneMessage = new PhoneMessage(phoneInfo, PhoneMessage.MessageState.HangUp);
-                getSender().tell(phoneMessage, ActorRef.noSender());
-            } else {
-                Thread.sleep(10000);
-                phoneMessage = new PhoneMessage(phoneInfo, PhoneMessage.MessageState.Reject);
-                getSender().tell(phoneMessage, ActorRef.noSender());
-            }
-            System.out.println(new Date() + ":拨打结束：" + phoneInfo.getPhoneNum());
+        if (message instanceof PhoneInfoMessage) {
+            PhoneInfoMessage phoneInfoMessage = (PhoneInfoMessage) message;
+            phoneInfoMessage.setPhoneType("Y");
+            System.out.println("PhoneActor.getSelf():" + getSelf().path());
+            System.out.println("PhoneActor.getSender():" + getSender().path());
+            System.out.println(new Date() + ":拨打中：" + phoneInfoMessage.getPhoneNum());
+            System.out.println(new Date() + ":拨打结束：" + phoneInfoMessage.getPhoneNum());
 
-
+        } else if (message instanceof ResultInfoMessage) {
+            ActorRef defaultActorRef = StorageActorRef.getDefaultActorRef();
+            defaultActorRef.tell(message, getSelf());
         } else {
             unhandled(message);
         }

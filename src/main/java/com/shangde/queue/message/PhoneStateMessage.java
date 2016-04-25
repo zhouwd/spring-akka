@@ -14,7 +14,7 @@ package com.shangde.queue.message;
  * 原始作者: zhouwendong
  *
  */
-public class PhoneMessage {
+public class PhoneStateMessage {
 
 //	Connected("拨通", "CONNECTED"), CannotConnected("未接通", "cannotConnected"), Reject("拒接", "reject");
 
@@ -23,7 +23,7 @@ public class PhoneMessage {
 
     private MessageState state;
 
-    public PhoneMessage(Object message, MessageState state) {
+    public PhoneStateMessage(Object message, MessageState state) {
         this.message = message;
         this.state = state;
     }
@@ -44,7 +44,7 @@ public class PhoneMessage {
         this.state = state;
     }
 
-    public static enum MessageState {
+    public enum MessageState {
         Connected, CannotConnected, Reject, HangUp
     }
 }

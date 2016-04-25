@@ -1,14 +1,18 @@
 package com.shangde.queue.actor;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import com.shangde.pojo.PhoneInfo;
-import com.shangde.queue.message.PhoneMessage;
+import com.shangde.queue.message.EventMessages;
+import com.shangde.queue.message.PhoneInfoMessage;
+import com.shangde.queue.message.PhoneStateMessage;
+import com.shangde.queue.message.RuleInfoMessage;
 import com.shangde.util.CommonUtil;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 /*
  * 文件名： PhoneBookActor.java
@@ -26,34 +30,39 @@ import com.shangde.util.CommonUtil;
  */
 public class AgentActor extends UntypedActor {
 
-    private Queue<PhoneInfo> waitIngList = new ArrayDeque<>();
+    private Queue<PhoneInfoMessage> waitIngQueue = new ArrayDeque<>();
+
+    private List<RuleInfoMessage> ruleInfoMessageList = new ArrayList<>();
+
+    private List<PhoneInfoMessage> finishList = new ArrayList<>();
 
     private boolean isWait;
-
 
     private ActorRef actorRef;
 
     @Override
     public void onReceive(Object message) throws Exception {
-        if (message instanceof PhoneInfo) {
-            PhoneInfo info = (PhoneInfo) message;
-            if (isWait && waitIngList.size() > 0) {
-                waitIngList.add(info);
+        System.out.println("AgentActor.getSelf():" + getSelf().path());
+        System.out.println("AgentActor.getSender():" + getSender().path());
+        if (message instanceof PhoneInfoMessage) {
+            PhoneInfoMessage info = (PhoneInfoMessage) message;
+            if (isWait && waitIngQueue.size() > 0) {
+                waitIngQueue.add(info);
             } else {
                 callPhone(info);
             }
-        } else if (message instanceof PhoneMessage) {
-            PhoneMessage phoneMessage = (PhoneMessage) message;
-            PhoneMessage.MessageState phoneMessageState = phoneMessage.getState();
-            if (PhoneMessage.MessageState.Connected.equals(phoneMessageState)) {
-                isWait = true;
-            } else {
-                isWait = false;
-            }
+        } else if (message instanceof PhoneStateMessage) {
+            //当电话拨打结束，重新从队列中获取要拨打的内容。
+            PhoneStateMessage phoneMessage = (PhoneStateMessage) message;
+            PhoneStateMessage.MessageState phoneMessageState = phoneMessage.getState();
+            isWait = PhoneStateMessage.MessageState.Connected.equals(phoneMessageState);
 
             if (!isWait) {
-                callPhone(waitIngList.poll());
+                callPhone(waitIngQueue.poll());
             }
+        } else if (message instanceof RuleInfoMessage) {
+
+        } else if (message instanceof EventMessages.ClearCache) {
 
         } else {
             unhandled(message);
@@ -61,12 +70,12 @@ public class AgentActor extends UntypedActor {
 
     }
 
-    private void callPhone(PhoneInfo info) {
+    private void callPhone(PhoneInfoMessage info) {
         if (info == null) {
             return;
         }
         if (info.getPhoneNum() != null && CommonUtil.isPhoneNum(info.getPhoneNum())) {
-            System.out.println("准备：" + info.getPhoneNum());
+            System.out.println("AgentActor.class 准备：" + info.getPhoneNum());
             info.setPhoneType("C");
             getActorRef().tell(info, getSelf());
         }

@@ -1,13 +1,13 @@
 package com.shangde.queue.actor;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import com.shangde.pojo.PhoneInfo;
+import com.shangde.queue.message.PhoneInfoMessage;
 import com.shangde.util.CommonUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * 文件名： AgentActor.java
@@ -27,13 +27,15 @@ public class GroupActor extends UntypedActor {
 
     private Map<String, ActorRef> actorRefMap = new HashMap<>();
 
+    private Map<String, PhoneInfoMessage> agentMsgMap = new HashMap<>();
+
     @Override
     public void onReceive(Object message) throws Exception {
 //		System.out.println(getSelf().path() + " message=" + message.toString());
-        System.out.println(GroupActor.class + message.toString());
+        System.out.println(GroupActor.class + "::" + message.toString());
         //获取咨询师拨打电话队列。默认加载咨询师自己的队列。当自己的队列电话打完之后，向组队列请求新的数据
-        if (message instanceof PhoneInfo) {
-            PhoneInfo info = (PhoneInfo) message;
+        if (message instanceof PhoneInfoMessage) {
+            PhoneInfoMessage info = (PhoneInfoMessage) message;
             //该方式
             Props props = Props.create(AgentActor.class);
             String actorName = "agent_" + info.getAgentName();
@@ -43,9 +45,10 @@ public class GroupActor extends UntypedActor {
                 actorRef = getContext().actorOf(props, actorName);
                 actorRefMap.put(actorName, actorRef);
             }
-
+            info.setMsg("it is in GroupActor");
+            System.out.println("GroupActor.getSelf():" + getSelf().path());
+            System.out.println("GroupActor.getSender():" + getSender().path());
             if (info.getPhoneNum() != null && CommonUtil.isPhoneNum(info.getPhoneNum())) {
-                System.out.println("准备：" + info.getPhoneNum());
                 actorRef.tell(info, getSelf());
             }
         } else {

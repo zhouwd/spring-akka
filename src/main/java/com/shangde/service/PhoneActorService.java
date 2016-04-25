@@ -1,8 +1,8 @@
 package com.shangde.service;
 
-import java.util.Queue;
+import com.shangde.queue.message.PhoneInfoMessage;
 
-import com.shangde.pojo.PhoneInfo;
+import java.util.Queue;
 
 /*
  * 文件名： DemoService.java
@@ -25,21 +25,21 @@ public interface PhoneActorService {
      *
      * @return
      */
-    Queue<PhoneInfo> getPhoneInfo();
+    Queue<PhoneInfoMessage> getPhoneInfo();
 
     /**
      * 发送消息
      *
-     * @param phoneInfo 电话信息
+     * @param phoneInfoMessage 电话信息
      */
-    void sendPhoneInfo(PhoneInfo phoneInfo);
+    void sendPhoneInfo(PhoneInfoMessage phoneInfoMessage);
 
     /**
      * 批量发送队列消息
      *
-     * @param phoneInfoQueue 批量的队列消息
+     * @param phoneInfoMessageQueue 批量的队列消息
      */
-    void sendQueuePhoneInfo(Queue<PhoneInfo> phoneInfoQueue);
+    void sendQueuePhoneInfo(Queue<PhoneInfoMessage> phoneInfoMessageQueue);
 
 
 }
