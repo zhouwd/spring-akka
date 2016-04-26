@@ -15,4 +15,24 @@ package com.shangde.pojo;
  *
  */
 public class AgentPojo {
+
+    private String emNo;
+
+    private String seatNo;
+
+    public String getEmNo() {
+        return emNo;
+    }
+
+    public void setEmNo(String emNo) {
+        this.emNo = emNo;
+    }
+
+    public String getSeatNo() {
+        return seatNo;
+    }
+
+    public void setSeatNo(String seatNo) {
+        this.seatNo = seatNo;
+    }
 }

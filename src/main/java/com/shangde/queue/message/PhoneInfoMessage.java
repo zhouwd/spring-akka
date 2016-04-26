@@ -32,6 +32,8 @@ public class PhoneInfoMessage implements Serializable {
 
     private String callNum;
 
+    private String whose;
+
     private String msg;
 
     public Integer getLegionId() {
@@ -88,6 +90,14 @@ public class PhoneInfoMessage implements Serializable {
 
     public void setCallNum(String callNum) {
         this.callNum = callNum;
+    }
+
+    public String getWhose() {
+        return whose;
+    }
+
+    public void setWhose(String whose) {
+        this.whose = whose;
     }
 
     public String getMsg() {

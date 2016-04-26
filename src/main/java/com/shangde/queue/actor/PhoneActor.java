@@ -32,6 +32,7 @@ public class PhoneActor extends UntypedActor {
             System.out.println("PhoneActor.getSelf():" + getSelf().path());
             System.out.println("PhoneActor.getSender():" + getSender().path());
             System.out.println(new Date() + ":拨打中：" + phoneInfoMessage.getPhoneNum());
+            //TODO 调用CTI接口，拨打该号码
             System.out.println(new Date() + ":拨打结束：" + phoneInfoMessage.getPhoneNum());
 
         } else if (message instanceof ResultInfoMessage) {

@@ -52,6 +52,9 @@ class PortalActor extends UntypedActor {
     public void onReceive(Object message) throws Exception {
         if (message instanceof PhoneInfoMessage) {
             PhoneInfoMessage phoneInfoMessage = (PhoneInfoMessage) message;
+            if (phoneInfoMessage.getPhoneNum() == null) {
+                return;
+            }
             Props props = Props.create(LegionActor.class);
             String actorName = "legion_" + phoneInfoMessage.getLegionId().toString();
             ActorRef actorRef = actorRefMap.get(actorName);

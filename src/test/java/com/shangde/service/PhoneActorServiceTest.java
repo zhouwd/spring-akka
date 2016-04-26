@@ -26,6 +26,6 @@ public class PhoneActorServiceTest {
         phoneInfoMessage.setStudentName("小一");
         phoneActorService.sendPhoneInfo(phoneInfoMessage);
 
-        Thread.sleep(500000);
+        Thread.sleep(5000);
     }
 }

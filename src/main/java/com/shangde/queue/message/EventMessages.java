@@ -25,19 +25,38 @@ public interface EventMessages {
         }
     }
 
+    class OperateActor extends  EventMessage{
+        private boolean runState;
+
+        public boolean isRunState() {
+            return runState;
+        }
+
+        public void setRunState(boolean runState) {
+            this.runState = runState;
+        }
+    }
+
     /**
-     * 关闭Actor消息
+     * 负责告知创建军团队列。<code>PortalActorRef<code/>中创建该军团队列。
      */
-    public static class ShutDown extends EventMessage{
-        private String actorPath;
+    public static class InitLegionActor extends OperateActor{
+    }
 
-        public ShutDown(String actorPath) {
-            this.actorPath = actorPath;
-        }
+    /**
+     * 初始化指定军团下的所有组队列。可以创建，也可以关闭。
+     * 如果该组所在的军团队列尚未初始化，那么无法初始化该军团所有的组队列。
+     */
+    public static class InitGroupActor extends OperateActor{
 
-        public String getActorPath() {
-            return actorPath;
-        }
+    }
+
+    /**
+     * 初始化指定组下的所有咨询师队列。可以创建，也可以关闭。
+     * 如果该组队列尚未初始化，那么无法初始化该组所有的咨询师队列。
+     */
+    public static class InitAgentActor extends OperateActor{
+
     }
 
     /**

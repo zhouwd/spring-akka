@@ -3,6 +3,8 @@ package com.shangde.queue.actor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.event.DiagnosticLoggingAdapter;
+import akka.event.Logging;
 import com.shangde.queue.message.EventMessages;
 import com.shangde.queue.message.PhoneInfoMessage;
 import com.shangde.queue.message.PhoneStateMessage;
@@ -30,6 +32,8 @@ import java.util.Queue;
  */
 public class AgentActor extends UntypedActor {
 
+    private final DiagnosticLoggingAdapter log = Logging.getLogger(this);
+
     private Queue<PhoneInfoMessage> waitIngQueue = new ArrayDeque<>();
 
     private List<RuleInfoMessage> ruleInfoMessageList = new ArrayList<>();
@@ -42,6 +46,7 @@ public class AgentActor extends UntypedActor {
 
     @Override
     public void onReceive(Object message) throws Exception {
+        log.info("AgentActor.getSelf():" + getSelf().path());
         System.out.println("AgentActor.getSelf():" + getSelf().path());
         System.out.println("AgentActor.getSender():" + getSender().path());
         if (message instanceof PhoneInfoMessage) {
@@ -61,12 +66,17 @@ public class AgentActor extends UntypedActor {
                 callPhone(waitIngQueue.poll());
             }
         } else if (message instanceof RuleInfoMessage) {
-
+            ruleInfoMessageList.clear();
+            ruleInfoMessageList.add((RuleInfoMessage) message);
         } else if (message instanceof EventMessages.ClearCache) {
             waitIngQueue.clear();
         } else {
             unhandled(message);
         }
+
+    }
+
+    private void orderWaitIngQueue(){
 
     }
 
