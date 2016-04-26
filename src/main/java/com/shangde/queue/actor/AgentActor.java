@@ -63,7 +63,7 @@ public class AgentActor extends UntypedActor {
         } else if (message instanceof RuleInfoMessage) {
 
         } else if (message instanceof EventMessages.ClearCache) {
-
+            waitIngQueue.clear();
         } else {
             unhandled(message);
         }

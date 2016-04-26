@@ -25,7 +25,24 @@ public interface EventMessages {
         }
     }
 
+    /**
+     * 关闭Actor消息
+     */
+    public static class ShutDown extends EventMessage{
+        private String actorPath;
 
+        public ShutDown(String actorPath) {
+            this.actorPath = actorPath;
+        }
+
+        public String getActorPath() {
+            return actorPath;
+        }
+    }
+
+    /**
+     * 清空队列
+     */
     public static class ClearCache extends EventMessage {
 
         private Integer legionId;
@@ -79,7 +96,6 @@ public interface EventMessages {
         public static enum OperateObject {
             Legion, Group, Agent
         }
-
 
     }
 
