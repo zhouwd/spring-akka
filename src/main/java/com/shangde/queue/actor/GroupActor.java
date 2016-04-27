@@ -3,6 +3,8 @@ package com.shangde.queue.actor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import com.shangde.pojo.AgentPojo;
 import com.shangde.queue.message.PhoneInfoMessage;
 
@@ -32,10 +34,12 @@ public class GroupActor extends UntypedActor {
 
     private Map<String, List<PhoneInfoMessage>> agentMsgMap = new HashMap<>();
 
+    private final LoggingAdapter log = Logging.getLogger(this);
+
     @Override
     public void onReceive(Object message) throws Exception {
-//		System.out.println(getSelf().path() + " message=" + message.toString());
-        System.out.println(GroupActor.class + "::" + message.toString());
+        log.info(getSelf().path() + " message=" + message.toString());
+//        System.out.println(GroupActor.class + "::" + message.toString());
         //获取咨询师拨打电话队列。默认加载咨询师自己的队列。当自己的队列电话打完之后，向组队列请求新的数据
         if (message instanceof PhoneInfoMessage) {
             PhoneInfoMessage info = (PhoneInfoMessage) message;
