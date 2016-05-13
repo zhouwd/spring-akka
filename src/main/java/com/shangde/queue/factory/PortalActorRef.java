@@ -3,7 +3,7 @@ package com.shangde.queue.factory;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import com.shangde.queue.actor.PortalActor;
+import com.shangde.queue.actor.RunActor;
 import com.typesafe.config.ConfigFactory;
 
 /*
@@ -30,7 +30,7 @@ public class PortalActorRef {
     public static ActorRef getDefaultActorRef() {
         if (portalActorRef == null) {
             ActorSystem system = ActorSystem.create("ServerApp", ConfigFactory.load("akka.conf/server").getConfig("ServerSocketApp"));
-            portalActorRef = system.actorOf(Props.create(PortalActor.class), "mainActor");
+            portalActorRef = system.actorOf(Props.create(RunActor.class), "mainActor");
         }
         return portalActorRef;
     }

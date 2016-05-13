@@ -34,7 +34,7 @@
     </bean>
 
     <bean id="conversionService" class="org.springframework.format.support.DefaultFormattingConversionService"/>
-
+    <bean class="com.shangde.bean.SpringContextUtil"/>
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="defaultContentType" value="text/html"/>
         <property name="mediaTypes">
