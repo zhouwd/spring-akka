@@ -1,4 +1,4 @@
-package com.shangde.pojo;
+package com.shangde.queue.message;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ import java.io.Serializable;
  * 原始作者: zhouwendong
  *
  */
-public class PhoneInfo implements Serializable {
+public class PhoneInfoMessage implements Serializable {
 
     private Integer legionId;
 
@@ -31,6 +31,10 @@ public class PhoneInfo implements Serializable {
     private String phoneNum;
 
     private String callNum;
+
+    private String whose;
+
+    private String msg;
 
     public Integer getLegionId() {
         return legionId;
@@ -88,15 +92,32 @@ public class PhoneInfo implements Serializable {
         this.callNum = callNum;
     }
 
+    public String getWhose() {
+        return whose;
+    }
+
+    public void setWhose(String whose) {
+        this.whose = whose;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("PhoneInfo{");
+        final StringBuffer sb = new StringBuffer("PhoneInfoMessage{");
         sb.append("legionId=").append(legionId);
         sb.append(", groupId=").append(groupId);
         sb.append(", agentName='").append(agentName).append('\'');
         sb.append(", phoneType='").append(phoneType).append('\'');
         sb.append(", phoneNum='").append(phoneNum).append('\'');
         sb.append(", callNum='").append(callNum).append('\'');
+        sb.append(", msg='").append(msg).append('\'');
         sb.append('}');
         return sb.toString();
     }

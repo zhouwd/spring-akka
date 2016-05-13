@@ -1,12 +1,13 @@
 package com.shangde.queue.actor;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import com.shangde.pojo.PhoneInfo;
+import com.shangde.queue.message.EventMessages;
+import com.shangde.queue.message.PhoneInfoMessage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * 文件名： GroupActor.java
@@ -29,23 +30,28 @@ public class LegionActor extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
 //		System.out.println(getSelf().path() + " message=" + message.toString());
-        if (message instanceof PhoneInfo) {
-            PhoneInfo phoneInfo = (PhoneInfo) message;
+        if (message instanceof PhoneInfoMessage) {
+            PhoneInfoMessage phoneInfoMessage = (PhoneInfoMessage) message;
             Props props = Props.create(GroupActor.class);
 
-            String actorName = "group_" + phoneInfo.getGroupId();
+            String actorName = "group_" + phoneInfoMessage.getGroupId();
 
             ActorRef actorRef = actorRefMap.get(actorName);
             if (actorRef == null) {
                 actorRef = getContext().actorOf(props, actorName);
                 actorRefMap.put(actorName, actorRef);
             }
-
-            actorRef.tell(phoneInfo, getSelf());
+            phoneInfoMessage.setMsg("it is in legionActor:" + getSelf());
+            actorRef.tell(phoneInfoMessage, getSelf());
 
         } else if (message instanceof String && "EOF".equals(message.toString())) {
             System.out.println("关闭该队列");
             getContext().system().shutdown();
+
+        } else if (message instanceof EventMessages.ClearCache) {
+            EventMessages.ClearCache clearCache = (EventMessages.ClearCache) message;
+            String actorName = "group_" + clearCache.getGroupId();
+            ActorRef actorRef = actorRefMap.get(actorName);
 
         } else {
             unhandled(message);

@@ -1,4 +1,4 @@
-package com.shangde.pojo;
+package com.shangde.queue.message;
 
 import java.io.Serializable;
 import java.util.Queue;
@@ -17,13 +17,13 @@ import java.util.Queue;
  * 原始作者: zhouwendong
  *
  */
-public class AgentInfo implements Serializable {
+public class AgentInfoMessage implements Serializable {
 
     private String emNo;
 
     private String seatNo;
 
-    private Queue<PhoneInfo> phoneInfoQueue;
+    private Queue<PhoneInfoMessage> phoneInfoMessageQueue;
 
     public String getEmNo() {
         return emNo;
@@ -41,11 +41,11 @@ public class AgentInfo implements Serializable {
         this.seatNo = seatNo;
     }
 
-    public Queue<PhoneInfo> getPhoneInfoQueue() {
-        return phoneInfoQueue;
+    public Queue<PhoneInfoMessage> getPhoneInfoMessageQueue() {
+        return phoneInfoMessageQueue;
     }
 
-    public void setPhoneInfoQueue(Queue<PhoneInfo> phoneInfoQueue) {
-        this.phoneInfoQueue = phoneInfoQueue;
+    public void setPhoneInfoMessageQueue(Queue<PhoneInfoMessage> phoneInfoMessageQueue) {
+        this.phoneInfoMessageQueue = phoneInfoMessageQueue;
     }
 }
